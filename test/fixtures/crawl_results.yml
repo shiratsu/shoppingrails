@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  api_type: 1
+  offset: 1
+  updated_at: 2014-01-21 21:46:18
+
+two:
+  api_type: 1
+  offset: 1
+  updated_at: 2014-01-21 21:46:18

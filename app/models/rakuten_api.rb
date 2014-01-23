@@ -1,0 +1,2 @@
+class RakutenApi < Product
+end
