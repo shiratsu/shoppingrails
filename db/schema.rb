@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140121124617) do
 
-  create_table "categories", force: true do |t|
+  create_table "categories", primary_key: "category_id", force: true do |t|
     t.string   "category_name"
     t.integer  "api_type"
     t.datetime "created_at"
@@ -31,11 +31,22 @@ ActiveRecord::Schema.define(version: 20140121124617) do
     t.string   "product_name"
     t.text     "description"
     t.string   "url"
+    t.string   "image_small_url"
+    t.string   "image_medium_url"
     t.string   "affiliate_url"
+    t.integer  "product_id"
     t.integer  "category_id"
     t.string   "category_name"
     t.string   "maker_name"
-    t.integer  "price"
+    t.integer  "fixed_price"
+    t.integer  "default_price"
+    t.integer  "sale_price"
+    t.integer  "period_start"
+    t.integer  "period_end"
+    t.integer  "review_average"
+    t.integer  "total_reviews"
+    t.integer  "total_used"
+    t.integer  "used_price"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
