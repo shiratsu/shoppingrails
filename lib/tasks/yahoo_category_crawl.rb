@@ -29,12 +29,18 @@ class Tasks::YahooCategoryCrawl
     category_list = []
     hash.each do |product|
       if product[1]['Url'] != nil
-        puts product[1]['Url']
-        puts product[1]['Id']
-        puts product[1]['Title']['Medium']
-        puts '======================================'
+        # puts product[1]['Url']
+        # puts product[1]['Id']
+        # puts product[1]['Title']['Medium']
+        # puts '======================================'
+        category_list << Category.new(category_id: product[1]['Id'],
+        category_name: product[1]['Title']['Medium'],
+        api_type: 1)
       end
     end
+
+    Category.import category_list
+
   end
 
 end

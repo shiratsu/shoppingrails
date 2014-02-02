@@ -1,6 +1,7 @@
 class CreateCategories < ActiveRecord::Migration
   def change
-    create_table :categories do |t|
+    create_table :categories,:id=>false do |t|
+      t.column :category_id, "int(11) PRIMARY KEY"
       t.string :category_name
       t.integer :api_type
 
