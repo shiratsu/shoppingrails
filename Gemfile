@@ -32,6 +32,36 @@ gem 'jbuilder', '~> 1.2'
 #Amazon Ecs
 gem 'amazon-ecs'
 
+#楽天
+gem 'rakuten_web_service'
+
+gem 'i18n-js'
+gem 'rails_admin'
+gem 'devise'
+
+# Assets log cleaner
+gem 'quiet_assets'
+
+# Form Builders
+gem 'simple_form'
+
+# # Process Management
+gem 'foreman'
+
+# HTML5 Validator
+gem 'html5_validators'
+
+# PG/MySQL Log Formatter
+gem 'rails-flog'
+
+# Migration Helper
+gem 'migrant'
+
+# Pagenation
+gem 'kaminari'
+
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -47,4 +77,49 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger', group: [:development, :test]
+
+group :production, :staging do
+  # ログ保存先変更、静的アセット Heroku 向けに調整
+  gem 'rails_12factor'
+end
+
+
+group :development, :test do
+  # Rails application preloader
+  gem 'spring'
+
+  # Railsコンソールの多機能版
+  gem 'pry-rails'
+
+  # pryの入力に色付け
+  gem 'pry-coolline'
+
+  # デバッカー
+  gem 'pry-byebug'
+
+  # Pryでの便利コマンド
+  gem 'pry-doc'
+
+  # PryでのSQLの結果を綺麗に表示
+  gem 'hirb'
+  gem 'hirb-unicode'
+
+  # pryの色付けをしてくれる
+  gem 'awesome_print'
+
+  # Rspec
+  gem 'rspec-rails'
+  gem 'rake_shared_context'
+
+  # fixtureの代わり
+  gem "factory_girl_rails"
+
+  # テスト環境のテーブルをきれいにする
+  gem 'database_rewinder'
+
+  # Guard
+  gem 'guard-rspec'
+  gem 'guard-spring'
+end
+

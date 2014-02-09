@@ -7,12 +7,12 @@ class Tasks::RakutenCrawl
 
   #変数初期化
   @@start       = 0;
-  @@apikey      = 'dj0zaiZpPU0yMGNPVnFnUTJ2NSZzPWNvbnN1bWVyc2VjcmV0Jng9YTQ-'
+  @@apikey      = '1059788590851227265'
   @@loop_limit  = 5
   @@loop_count  = 0
-  @@api_url = 'http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch'
+  @@api_url = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20130805'
   @@category_name = nil
-  @@hits = 50
+  @@hits = 30
 
   # メイン処理
   def self.execute(category_id)
@@ -21,7 +21,7 @@ class Tasks::RakutenCrawl
 
     #まずは、DBから値を取得
     # crawl_result = CrawlResult.find(:all ,:conditions => {:api_type => 1})
-    crawl_result = CrawlResult.find(1)
+    crawl_result = CrawlResult.find(3)
     # crawl_result = CrawlResult.find('SELECT * from crawl_results WHERE api_type = 1')
 
     #まずは、DBから値を取得
@@ -39,7 +39,7 @@ class Tasks::RakutenCrawl
     end
 
     for @@loop_count in 0..@@loop_limit do
-
+puts category_id.to_s
       self.main(category_id)
 
     end
@@ -54,48 +54,47 @@ class Tasks::RakutenCrawl
   end
 
   def self.main(category_id)
-    uri = URI.parse(@@api_url+'?appid='+@@apikey+'&category_id='+category_id.to_s+'&offset='+@@start.to_s+'&hits='+@@hits.to_s)
+    uri = URI.parse(@@api_url+'?applicationId='+@@apikey+'&genreId='+category_id.to_s+'&offset='+@@start.to_s+'&hits='+@@hits.to_s)
     json = Net::HTTP.get(uri)
     result = JSON.parse(json)
+    # puts uri
     # puts result
 
-    return_count = result['ResultSet']['totalResultsReturned']
+    return_count = result['pageCount']
 
-    hash = result['ResultSet']['0']['Result']
+    hash = result['Items']
     # puts hash
 
     #ループでバルクインサート作る
     products_list = []
     crawl_list = []
+    image_small_url = '';
+    image_medium_url = '';
 
     hash.each do |product|
-      if product[1]['Name'] != nil
-        # puts product[1]['Name']
-        # puts product[1]['Description']
-        # puts product[1]['Url']
-        # puts product[1]['Image']['Small']
-        # puts product[1]['Image']['Medium']
-        # puts product[1]['ProductId']
-        # puts product[1]['PriceLabel']['FixedPrice']
-        # puts product[1]['PriceLabel']['DefaultPrice']
-        # puts product[1]['PriceLabel']['SalePrice']
-        # puts product[1]['PriceLabel']['PeriodStart']
-        # puts product[1]['PriceLabel']['PeriodEnd']
-        # puts '======================================'
+      if product['Item']['itemName'] != nil
+        # puts product
+        if product['Item']['smallImageUrls'][0]['imageUrl'] != nil
+          image_small_url = product['Item']['smallImageUrls'][0]['imageUrl']
+        end
+        if product['Item']['mediumImageUrls'][0]['imageUrl'] != nil
+          image_medium_url = product['Item']['mediumImageUrls'][0]['imageUrl']
+        end
 
-        products_list << Products.new(api_type:1,
-        product_name: product[1]['Name'],
+        products_list << Products.new(api_type:3,
+        product_name: product['Item']['itemName'],
         category_name: @@category_name,
-        description: product[1]['Description'],
-        url: product[1]['Url'],
-        image_small_url: product[1]['Image']['Small'],
-        image_medium_url: product[1]['Image']['Medium'],
-        product_id: product[1]['ProductId'],
-        fixed_price: product[1]['PriceLabel']['FixedPrice'],
-        default_price: product[1]['PriceLabel']['DefaultPrice'],
-        sale_price: product[1]['PriceLabel']['SalePrice'],
-        period_start: product[1]['PriceLabel']['PeriodStart'],
-        period_end: product[1]['PriceLabel']['PeriodEnd'],
+        description: product['Item']['catchcopy'],
+        url: product['Item']['itemUrl'],
+        image_small_url: image_small_url,
+        image_medium_url: image_medium_url,
+        product_id: product['Item']['itemCode'],
+        fixed_price: product['Item']['itemPrice'],
+        review_average: product['Item']['reviewAverage'],
+        default_price: '',
+        sale_price: '',
+        period_start: '',
+        period_end: '',
         )
 
       end

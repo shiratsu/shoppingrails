@@ -109,6 +109,9 @@ GEM
     i18n (0.6.9)
     i18n-js (2.1.2)
       i18n
+    indextank (1.0.13)
+      faraday_middleware (>= 0.9.0)
+      yajl-ruby (>= 0.7.7)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -283,6 +286,7 @@ GEM
     unicode-display_width (0.1.1)
     warden (1.2.3)
       rack (>= 1.0)
+    yajl-ruby (1.2.0)
     yard (0.8.7.3)
 
 PLATFORMS
@@ -304,6 +308,7 @@ DEPENDENCIES
   hirb-unicode
   html5_validators
   i18n-js
+  indextank
   jbuilder (~> 1.2)
   jquery-rails
   kaminari

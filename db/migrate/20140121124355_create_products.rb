@@ -8,7 +8,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :image_small_url
       t.string :image_medium_url
       t.string :affiliate_url
-      t.integer :product_id
+      t.string :product_id
       t.integer :category_id
       t.string :category_name
       t.string :maker_name
