@@ -1,2 +1,30 @@
 <h1>トップだよ</h1>
 <p>まずは検索してみよう</p>
+
+<%= form_tag('/',:method => :get, :multipart => true) do %>
+<%= text_field :searchform, :name %>
+<%= submit_tag '検索', :name=>'hoge' %>
+<% end %>
+
+<div class="container-fluid">
+  <div class="row">
+     <% @products.each do |product| %>
+       <div class="span3">
+        <img src="<%= product.image_small_url %>" >
+       </div>
+
+
+     <% end %>
+  </div>
+</div>
+
+<div class="pagination">
+<ul>
+<li><a href="#">Prev</a></li>
+<li class="active"><a href="#">1</a></li>
+<li><a href="#">2</a></li>
+<li><a href="#">3</a></li>
+<li><a href="#">4</a></li>
+<li><a href="#">Next</a></li>
+</ul>
+</div>

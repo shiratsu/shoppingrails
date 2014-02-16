@@ -60,7 +60,10 @@ gem 'migrant'
 # Pagenation
 gem 'kaminari'
 
-
+gem 'simple_form'
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 4.0.2 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

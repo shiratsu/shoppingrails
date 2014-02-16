@@ -1,0 +1,81 @@
+@import "twitter/bootstrap/bootstrap";
+@import "twitter/bootstrap/responsive";
+
+// Set the correct sprite paths
+@iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: image-url("twitter/bootstrap/glyphicons-halflings-white.png");
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+@fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
+@fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot?#iefix");
+@fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
+
+// Font Awesome
+@import "fontawesome/font-awesome";
+
+// Glyphicons
+//@import "twitter/bootstrap/sprites.less";
+
+// Your custom LESS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
+//
+// Example:
+// @linkColor: #ff0000;
+
+@black: #010701;
+@grayDarker:            lighten(@black, 16%);
+@grayDark:              lighten(@black, 32%);
+@gray:                  lighten(@black, 48%);
+@grayLight:             lighten(@black, 64%);
+@grayLighter:           lighten(@black, 80%);
+@white:                 lighten(@black, 96%);
+
+
+.hero-unit {
+  background-color: lighten(@black, 90%);
+  margin-top: 19px;
+  >h1 {
+    font-size: 24px;
+  }
+}
+
+
+
+.well {
+  background-color: lighten(@black, 90%);
+  border: 1px solid @grayLighter;
+  border: 1px solid rgba(5, 5, 10,.05);
+  .box-shadow(inset 01px1px rgba(5, 5, 10,.05));
+  blockquote {
+    border-color: #ddd;
+    border-color: rgba(0,0,0,.15);
+  }
+}
+
+.table-striped {
+  tbody {
+    tr:nth-child(odd) td,
+    tr:nth-child(odd) th {
+      background-color: lighten(@black, 93%);
+    }
+  }
+}
+
+.table {
+  tbody tr:hover td,
+  tbody tr:hover th {
+    background-color: lighten(@black, 90%);
+  }
+}
+
+.form-actions {
+  background-color: lighten(@black, 90%);
+  border-top: 1px solid lighten(@black, 93%);
+}

@@ -25,8 +25,18 @@ module ShoppingRails
     # config.i18n.default_locale = :de
 
     # 日本語化
-    I18n.enforce_available_locales = true
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.before_configuration do
+      I18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+      I18n.locale = :ja
+      I18n.default_locale = :ja
+      config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+      config.i18n.locale = :ja
+      # bypasses rails bug with i18n in production
+      I18n.reload!
+      config.i18n.reload!
+    end
+
+    config.i18n.locale = :ja
     config.i18n.default_locale = :ja
 
     # generatorの設定
