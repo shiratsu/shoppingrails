@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212224130) do
+ActiveRecord::Schema.define(version: 20140216155539) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -43,6 +43,22 @@ ActiveRecord::Schema.define(version: 20140212224130) do
   create_table "categories", primary_key: "category_id", force: true do |t|
     t.string   "category_name"
     t.integer  "api_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "caves", force: true do |t|
+    t.string   "shop_id"
+    t.string   "shop_name"
+    t.string   "log_image"
+    t.string   "address"
+    t.string   "station_name"
+    t.float    "lat"
+    t.float    "lng"
+    t.string   "genre_code"
+    t.string   "genre_name"
+    t.string   "pc_url"
+    t.string   "mobile_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

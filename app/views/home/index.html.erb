@@ -6,25 +6,43 @@
 <%= submit_tag '検索', :name=>'hoge' %>
 <% end %>
 
-<div class="container-fluid">
-  <div class="row">
-     <% @products.each do |product| %>
-       <div class="span3">
-        <img src="<%= product.image_small_url %>" >
-       </div>
+<%= paginate @products %>
 
+<table>
+  <thead>
+    <tr>
+      <th>商品イメージ</th>
+      <th>商品名</th>
+      <th>金額</th>
+      <th>評価</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-     <% end %>
-  </div>
-</div>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><img src="<%= product.image_small_url %>" ></td>
+        <td><%= link_to product.product_name, product.url %></td>
+        <td>
+        <% if product.sale_price != nil %>
+          <%= product.sale_price %>円(<%= product.period_start %>~<%= product.period_end %>)</p>
+        <% else %>
+          <%= product.default_price %>円
+        <% end %>
+        </td>
+        <td>
+        <% if product.sale_price != nil %>
+            <%= product.review_average %>
+        <% else %>
+            評価はありません
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<div class="pagination">
-<ul>
-<li><a href="#">Prev</a></li>
-<li class="active"><a href="#">1</a></li>
-<li><a href="#">2</a></li>
-<li><a href="#">3</a></li>
-<li><a href="#">4</a></li>
-<li><a href="#">Next</a></li>
-</ul>
-</div>
+<%= paginate @products %>
