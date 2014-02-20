@@ -28,10 +28,10 @@ test:
 
 production:
   adapter: mysql2
-  database: shopping_db
+  database: heroku_31cc0a948909178
   pool: 5
   timeout: 5000
   encoding: 'utf8'
-  username: root
-  password: shun0509
-  host: localhost
+  username: be2d22d44bb00f
+  password: 0998155d
+  host: us-cdbr-east-05.cleardb.net

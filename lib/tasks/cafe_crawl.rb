@@ -3,16 +3,15 @@ require 'open-uri'
 require 'json'
 require "date"
 
-class Tasks::YahooCrawl
+class Tasks::CafeCrawl
 
   #変数初期化
   @@start       = 0;
-  @@apikey      = 'dj0zaiZpPU0yMGNPVnFnUTJ2NSZzPWNvbnN1bWVyc2VjcmV0Jng9YTQ-'
+  @@apikey      = 'b11772330154a9b4-'
   @@loop_limit  = 5
   @@loop_count  = 0
-  @@api_url = 'http://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch'
-  @@category_name = nil
-  @@hits = 50
+  @@api_url = 'ttp://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
+
 
   # メイン処理
   def self.execute(category_id)
@@ -20,18 +19,7 @@ class Tasks::YahooCrawl
 
 
     #まずは、DBから値を取得
-    # crawl_result = CrawlResult.find(:all ,:conditions => {:api_type => 1})
-    crawl_result = CrawlResult.find(1)
-    # crawl_result = CrawlResult.find('SELECT * from crawl_results WHERE api_type = 1')
-
-    #まずは、DBから値を取得
-    categories = Category.find(:all, :conditions => {:category_id => category_id})
-    #puts @crawl_result.first.offset
-
-    #カテゴリ名を取り出す
-    unless categories.blank?
-      @@category_name = categories.first.category_name
-    end
+    crawl_result = CrawlResult.find(4)
 
     #終了ポイントがあれば取り出す
     unless crawl_result.blank?
@@ -40,7 +28,7 @@ class Tasks::YahooCrawl
 
     for @@loop_count in 0..@@loop_limit do
 
-      self.main(category_id)
+      self.main(@@genre_id)
 
     end
 
@@ -53,8 +41,10 @@ class Tasks::YahooCrawl
 
   end
 
-  def self.main(category_id)
-    uri = URI.parse(@@api_url+'?appid='+@@apikey+'&category_id='+category_id.to_s+'&offset='+@@start.to_s+'&hits='+@@hits.to_s)
+  def self.main()
+    genre_id = 'G014';
+    count = 50
+    uri = URI.parse(@@api_url+'key='+@@apikey+'&genre='+genre_id+'&offset='+@@start.to_s+'&count='+count.to_s+'&format=json')
     json = Net::HTTP.get(uri)
     result = JSON.parse(json)
     # puts result
