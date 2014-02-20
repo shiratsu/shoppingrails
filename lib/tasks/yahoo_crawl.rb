@@ -21,7 +21,12 @@ class Tasks::YahooCrawl
 
     #まずは、DBから値を取得
     # crawl_result = CrawlResult.find(:all ,:conditions => {:api_type => 1})
-    crawl_result = CrawlResult.find(1)
+    begin
+      crawl_result = CrawlResult.find(1)
+    rescue ActiveRecord::RecordNotFound
+      @@start = 0
+
+    end
     # crawl_result = CrawlResult.find('SELECT * from crawl_results WHERE api_type = 1')
 
     #まずは、DBから値を取得
@@ -44,12 +49,15 @@ class Tasks::YahooCrawl
 
     end
 
-
+    puts @@start
 
     ##ループ結果を保存して終了
+    if crawl_result == nil
+      crawl_result = CrawlResult.new
+      crawl_result.api_type = 1
+    end
     crawl_result.offset = @@start
     crawl_result.save
-
 
   end
 

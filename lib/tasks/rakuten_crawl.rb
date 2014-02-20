@@ -22,6 +22,14 @@ class Tasks::RakutenCrawl
     #まずは、DBから値を取得
     # crawl_result = CrawlResult.find(:all ,:conditions => {:api_type => 1})
     crawl_result = CrawlResult.find(3)
+
+    begin
+      crawl_result = CrawlResult.find(3)
+    rescue ActiveRecord::RecordNotFound
+      @@start = 0
+
+    end
+
     # crawl_result = CrawlResult.find('SELECT * from crawl_results WHERE api_type = 1')
 
     #まずは、DBから値を取得
@@ -47,6 +55,10 @@ puts category_id.to_s
 
 
     ##ループ結果を保存して終了
+    if crawl_result == nil
+      crawl_result = CrawlResult.new
+      crawl_result.api_type = 3
+    end
     crawl_result.offset = @@start
     crawl_result.save
 
